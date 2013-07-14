@@ -10,14 +10,16 @@ class Jobs
   def self.get_job
     # Get the job or control commands
     puts "Please give me a job. (Format: a => [b] #b is optional) Hit ':p' to PROCESS sequence, ':c' to CLEAR sequence or ':q' to EXIT."
-    self.process_job(gets.chomp)
+    self.process_job(gets.chomp.downcase)
   end
 
   def self.check_job_format(job)
     # Some tests on input format.
-    if job.match(/^:[pcq]$/).nil? && job.match(/^[a-zA-Z] *=> *[a-zA-Z]?$/).nil?
+    if job.match(/^:[pcq]$/).nil? && job.match(/^[a-zA-Z]? *=> *[a-zA-Z]?$/).nil?
       puts "ERROR: Unknown job format or command character."
-      puts "Do you mean: \"#{job} =>\" ?" unless job.match(/^[a-zA-Z]$/).nil?
+      self.get_job
+    elsif job.count(job[0]) > 1
+      puts "ERROR: Self-dependency is forbidden."
       self.get_job
     end
   end
@@ -31,7 +33,6 @@ class Jobs
     abort("Bye.")         if job == ":q"
 
     # Here comes job processing...
-    puts "Job added: \"#{job}\""
     self.get_job
   end
 
