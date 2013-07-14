@@ -21,12 +21,19 @@ class Jobs
     self.check_job(job)
 
     # Control commands
+    self.print_sequence   if job == ":p"
+    self.init             if job == ":c"
+    abort("Bye.")         if job == ":q"
 
     # Here comes job processing...
+    puts "Job added: \"#{job}\""
+    self.get_job
   end
 
   def self.print_sequence
     # Put sequence to the screen.
+    puts "Here comes the sequence:"
+    self.get_job
   end
 
 end
