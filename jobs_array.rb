@@ -6,7 +6,7 @@ class JobsArray < Array
         # Job doesn't exist
         self.push(ary[1])
       else
-        puts "WARNING: Job already added."
+        Errors.raise :job_already_added
         Jobs.get_job
       end
     else
@@ -23,10 +23,10 @@ class JobsArray < Array
       else
         # Both prejob and job exist"
         if self.index(ary[1]) > self.index(ary[0])
-          puts "WARNING: Jobs already added."
+          Errors.raise :jobs_already_added
           Jobs.get_job
         else
-          puts "ERROR: Circular dependency is forbidden."
+          Errors.raise :circular_dependency
           Jobs.get_job
         end
       end

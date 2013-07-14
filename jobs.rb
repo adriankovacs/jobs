@@ -29,10 +29,10 @@ module Jobs
   def self.check_job_format(job_string)
     # Some tests on input format.
     if job_string.match(/^:[pcq]$/).nil? && job_string.match(/^[a-zA-Z]? *=> *[a-zA-Z]?$/).nil?
-      puts "ERROR: Unknown job format or command character."
+      Errors.raise :unknown_format
       self.get_job
     elsif job_string.count(job_string[0]) > 1
-      puts "ERROR: Self-dependency is forbidden."
+      Errors.raise :self_dependency
       self.get_job
     end
   end
