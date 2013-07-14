@@ -43,7 +43,6 @@ module Jobs
     prejob = jobs[1].nil? ? nil : jobs[1].strip
     @jobs.insert_or_push([prejob, job])
     puts "Added: #{job} => #{prejob}, Sequence: #{@jobs.sequence}"
-    #@jobs.index(prejob).nil? ? @jobs.push(prejob).push(job) : @jobs.insert(@jobs.index(prejob), job)
   end
 
   def self.print_sequence
